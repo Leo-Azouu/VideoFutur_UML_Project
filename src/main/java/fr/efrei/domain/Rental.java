@@ -92,15 +92,3 @@ public class Rental {
     }
 
 }
-
-//    Rental Class:
-//
-//        Attributes:
-//        rentalId: int
-//        rentalDate: Date
-//        returnDate: Date
-//        rentedMovie: Movie
-//        Methods:
-//        calculateRentalFee(): double
-//        processReturn(): void
-//        isLate(): boolean
