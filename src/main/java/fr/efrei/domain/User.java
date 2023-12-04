@@ -8,7 +8,67 @@ public class User {
     private String mail;
     private List<Rental> rentals;
 
-    public User() {
+    private User() {
+    }
+    public int getUserId() {return userId;}
+    public String getUsername() {return username;}
+    public String getPassword() {return password;}
+    public String getMail() {return mail;}
+    public List<Rental> getRentals() {return rentals;}
+
+
+    public boolean login(String loginIdentifier, String loginPassword) {
+        System.out.println("Trying to log in...");
+        if ((loginIdentifier.equals(username) || loginIdentifier.equals(mail)) && loginPassword.equals(password)) {
+            System.out.println("Successfully logged in as " + username);
+            return true;
+        } else {
+            System.out.println("Username or password is incorrect. Login failed.");
+            return false;
+        }
+    }
+    public void logout(){
+        System.out.println("The User "+this.username+" has been logged out");
+    }
+
+    public void returnMovie(Rental rental) {
+        // La logique de retour pourrait inclure des vérifications supplémentaires.
+        System.out.println(rental.getRentedMovie()+"Movie returned succesfully.");
+    }
+    public Rental rentMovie(Movie movie) {
+        if (movie.getAvailableCopies() > 0) {
+            Rental rental = new Rental.Builder()
+                    .setRentedMovie(movie)
+                    .setRentalDate(new Date()) // Set the rental date to the current date
+                    .build();
+
+            // Mettez à jour le nombre d'exemplaires disponibles
+            movie.decreaseAvailableCopies();
+
+            rentals.add(rental);
+            return rental; // Return the created rental object
+        } else {
+            System.out.println("No available copies of the movie. Please try again later.");
+            return null;
+        }
+    }
+    public void removeRental(Rental rental) {
+        rentals.remove(rental);
+    }
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                ", mail='" + mail + '\'' +
+                '}';
+    }
+    private User (Builder builder){
+        this.userId=builder.userId;
+        this.username= builder.username;
+        this.password=builder.password;
+        this.mail=builder.mail;
+        this.rentals=builder.rentals != null ? new ArrayList<>(builder.rentals) : new ArrayList<>();
     }
     public static class Builder{
         private int userId;
@@ -38,7 +98,7 @@ public class User {
             return this;
         }
         public Builder copy(User user){
-            this.userId=user.userId;
+            this.userId= user.userId;
             this.username=user.username;
             this.password=user.password;
             this.mail=user.mail;
@@ -48,74 +108,5 @@ public class User {
         public User build(){return new User(this);}
 
     }
-    private User (Builder builder){
-        this.userId=builder.userId;
-        this.username= builder.username;
-        this.password=builder.password;
-        this.mail=builder.mail;
-        this.rentals=builder.rentals;
-    }
-
-    public int getUserId() {return userId;}
-    public String getUsername() {return username;}
-    public String getPassword() {return password;}
-    public String getMail() {return mail;}
-
-    public List<Rental> getRentals() {return rentals;}
-
-
-    public boolean login(){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Please enter your e-mail or username :");
-        String Identicator = sc.next();
-        System.out.println("Please enter your password :");
-        String passwd= sc.next();
-        if((Identicator.equals(username)||Identicator.equals(mail))&&(passwd.equals(passwd))){
-            System.out.println("succesfully logged");
-            return true;
-        }
-        else{
-            System.out.println("Usename or passwd false try again");
-            return false;
-        }
-    }
-    public void logout(){
-        System.out.println("The User"+this.username+"has been logged out");
-    }
-    public void register(){
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Enter your UserId");
-        int uid = scan.nextInt();
-        userId = uid;
-        System.out.println("Enter your username : ");
-        String usern = scan.next();
-        username = usern;
-        System.out.println("Enter your password : ");
-        String passwd = scan.next();
-        password=passwd;
-        System.out.println("Enter your e-mail : ");
-        String email = scan.next();
-        mail = email;
-        System.out.println("User registered successfully.");
-    }
-    public void returnMovie(Rental rental) {
-        // La logique de retour pourrait inclure des vérifications supplémentaires.
-        System.out.println(rental.getRentedMovie()+"Movie returned succesfully.");
-    }
-    public Rental rentMovie(Movie movie){
-        Scanner sca = new Scanner(System.in);
-        System.out.println("Enter the name of the movie you want to rent :");
-        String movi = sca.next();
-        for(int i = 0;i<rentals.size();i++){
-            if(movi.equals(movie.getTitle())){
-                if(movie.getAvailableCopies()!=0){
-                    Rental rental= new Rental(this);
-                }
-            }
-        }
-    }
-
-
-
 
 }
