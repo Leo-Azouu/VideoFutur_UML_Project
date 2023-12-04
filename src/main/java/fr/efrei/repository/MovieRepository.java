@@ -51,7 +51,14 @@ public class MovieRepository implements IMovieRepository{
         boolean success = movies.remove(movieToDelete);
         return success;
     }
-
+    public Movie getById(int movieId) {
+        for (Movie movie : movies) {
+            if (movie.getMovieId() == movieId) {
+                return movie;
+            }
+        }
+        return null; // Retourne null si le film n'est pas trouvé
+    }
     @Override
     public List<Movie> getAll() {
         return movies;

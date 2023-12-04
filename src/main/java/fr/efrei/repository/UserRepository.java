@@ -5,7 +5,6 @@ import fr.efrei.domain.User;
 public class UserRepository implements IUserRepository {
     private static UserRepository repository = null;
     private List<User> user;
-
     private UserRepository() {
         this.user = new ArrayList<User>();
     }

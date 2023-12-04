@@ -1,17 +1,16 @@
 package fr.efrei.repository;
-
 import fr.efrei.domain.Rental;
-
 import java.util.ArrayList;
+import java.util.List;
 
 public class RentalRepository implements IRentalRepository{
 
     private static RentalRepository repository = null;
 
-    private ArrayList<Rental> rentalDB = null;
+    private List<Rental> rentals = null;
 
     private RentalRepository(){
-        this.rentalDB = new ArrayList<Rental>();
+        this.rentals = new ArrayList<Rental>();
     }
 
     // Singleton !
@@ -24,8 +23,8 @@ public class RentalRepository implements IRentalRepository{
 
     @Override
     public Rental create(Rental rental){
-        boolean s = rentalDB.add(rental);
-        if (s){
+        boolean success = rentals.add(rental);
+        if (success){
             return rental;
         }
         else{
@@ -34,43 +33,36 @@ public class RentalRepository implements IRentalRepository{
     }
 
     @Override
-    public Rental read(Rental rental){
-        for(Rental o : rentalDB){
-            if(o.getRentalId() == rental.getRentalId()){
-                return o;
+    public Rental read(Long rentalId){
+        for(Rental rental : rentals){
+            if(rental.getRentalId() == rentalId){
+                return rental;
             }
         }
         return null;
     }
 
     @Override
-    public Rental update(Rental newRental){
-        Rental oldRental = read(newRental);
-        if (oldRental == null){
-            return null;
-        }
-        boolean s = delete(newRental);
-        if(s){
-            boolean addingS = rentalDB.add(newRental);
-            if(addingS){
-                return newRental;
-            }
-            else{
-                return null;
+    public Rental update(Rental rental){
+        for(Rental r : rentals){
+            if(r.getRentalId() == rental.getRentalId()){
+                rentals.remove(r);
+                rentals.add(rental);
+                return rental;
             }
         }
         return null;
     }
 
     @Override
-    public boolean delete(Rental rental){
-        Rental deletedRental = read(rental);
-        boolean s = rentalDB.remove(deletedRental);
-        return s;
+    public boolean delete(Long rentalId){
+        Rental rentalToDelete = read(rentalId);
+        boolean success = rentals.remove(rentalToDelete);
+        return success;
     }
 
     @Override
-    public ArrayList<Rental> getAll(){
-        return rentalDB;
+    public List<Rental> getAll(){
+        return rentals;
     }
 }
