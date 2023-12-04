@@ -1,7 +1,6 @@
 package fr.efrei.factory;
 import fr.efrei.Util.Helper;
 import fr.efrei.domain.User;
-import java.util.*;
 
 public class UserFactory {
     public static User createUser(int userId,String username, String password, String mail){

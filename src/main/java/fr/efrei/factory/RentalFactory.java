@@ -1,7 +1,8 @@
 package fr.efrei.factory;
 
-import fr.efrei.util.Helper;
+import fr.efrei.Util.Helper;
 import java.util.Date;
+import fr.efrei.domain.Movie;
 import fr.efrei.domain.Rental;
 
 public class RentalFactory {
