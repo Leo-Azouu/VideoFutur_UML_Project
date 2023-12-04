@@ -1,5 +1,4 @@
 package fr.efrei.repository;
-import java.util.ArrayList;
 import java.util.List;
 
 import fr.efrei.domain.User;

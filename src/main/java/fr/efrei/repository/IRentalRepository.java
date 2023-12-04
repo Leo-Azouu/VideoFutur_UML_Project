@@ -1,11 +1,10 @@
 package fr.efrei.repository;
 
 import fr.efrei.domain.Rental;
+import java.util.List;
 
-import java.util.ArrayList;
+public interface IRentalRepository extends IRepository<Rental,Long> {
 
-public interface IRentalRepository extends IRepository<Rental> {
-
-    public ArrayList<Rental> getAll();
+    public List<Rental> getAll();
 
 }
