@@ -1,4 +1,4 @@
-package fr.efrei;
+package fr.efrei.view;
 
 import fr.efrei.domain.Category;
 import fr.efrei.domain.Movie;
